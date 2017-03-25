@@ -299,7 +299,7 @@ df <- data.frame(x,normalDFx$mean,normalDFy$mean,normalDFz$mean,normalDFtx$mean,
 ggplot(df, aes(df$x, y=value)) + labs(x="Time after collision", y="Mean") + ggtitle("Comparing Different Failures")+ geom_point(aes(y=normalDFx$mean, col="X force"), size=2) + geom_point(aes(y=normalDFy$mean,col="Y Force"), size=2) + geom_point(aes(y=normalDFz$mean, col="Z force"), size=2) + geom_point(aes(y=normalDFtx$mean,col="X Torque"), size=2) + geom_point(aes(y=normalDFty$mean,col="Y Torque"), size=2) + geom_point(aes(y=normalDFtz$mean,col="Z Torque"), size=2) + geom_line(aes(x = df$x, y = df$normalDFx.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$normalDFy.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$normalDFz.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$normalDFtx.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$normalDFty.mean), data = df, size = 0) + geom_line(aes(x = df$x, y = df$normalDFtz.mean),  data = df, size = 0)
 
 
-###NOW WE WANT TO LOOK AT COLLISION
+###NOW WE WANT TO LOOK AT BACK_COL
 
 #Create data frame
 collisionDFx <- data.frame(matrix(ncol=1,nrow = 15))
@@ -311,11 +311,11 @@ collisionDFtz <- data.frame(matrix(ncol = 1, nrow = 15))
 
 
 #Add data to data frames
-for(i in 1:1408){
+for(i in 1:752){
   a = i+1
   e = i + 15
   s = toString(a)
-  if (df2$V1[i] == 'collision') {
+  if (df2$V1[i] == 'back_col') {
     # want something that looks like df1$V2[i+1:i+15]
     collisionDFx[,s] <- df2$V2[a:e]
     collisionDFy[,s] <- df2$V3[a:e]
