@@ -139,7 +139,56 @@ df <- data.frame(x,collisionDFx$mean,collisionDFy$mean,collisionDFz$mean,collisi
 ggplot(df, aes(df$x, y=value)) + labs(x="Time after collision", y="Mean") + ggtitle("Comparing Different Failures for Collisions")+ geom_point(aes(y=collisionDFx$mean, col="X force"), size=2) + geom_point(aes(y=collisionDFy$mean,col="Y Force"), size=2) + geom_point(aes(y=collisionDFz$mean, col="Z force"), size=2) + geom_point(aes(y=collisionDFtx$mean,col="X Torque"), size=2) + geom_point(aes(y=collisionDFty$mean,col="Y Torque"), size=2) + geom_point(aes(y=collisionDFtz$mean,col="Z Torque"), size=2) + geom_line(aes(x = df$x, y = df$collisionDFx.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$collisionDFy.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$collisionDFz.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$collisionDFtx.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$collisionDFty.mean), data = df, size = 0) + geom_line(aes(x = df$x, y = df$collisionDFtz.mean),  data = df, size = 0)
 
 
+###NOW WE WANT TO LOOK AT obstruction
 
+#Create data frame
+obstructionDFx <- data.frame(matrix(ncol=1,nrow = 15))
+obstructionDFy <- data.frame(matrix(ncol = 1, nrow = 15))
+obstructionDFz <- data.frame(matrix(ncol = 1, nrow = 15))
+obstructionDFtx <- data.frame(matrix(ncol = 1, nrow = 15))
+obstructionDFty <- data.frame(matrix(ncol = 1, nrow = 15))
+obstructionDFtz <- data.frame(matrix(ncol = 1, nrow = 15))
+
+
+#Add data to data frames
+for(i in 1:1408){
+  a = i+1
+  e = i + 15
+  s = toString(a)
+  if (df1$V1[i] == 'obstruction') {
+    # want something that looks like df1$V2[i+1:i+15]
+    obstructionDFx[,s] <- df1$V2[a:e]
+    obstructionDFy[,s] <- df1$V3[a:e]
+    obstructionDFz[,s] <- df1$V4[a:e]
+    obstructionDFtx[,s] <- df1$V5[a:e]
+    obstructionDFty[,s] <- df1$V6[a:e]
+    obstructionDFtz[,s] <- df1$V7[a:e]
+  }
+}
+
+
+#Remove null columns
+obstructionDFx <- obstructionDFx[,colSums(is.na(obstructionDFx))<nrow(obstructionDFx)]
+obstructionDFy <- obstructionDFy[,colSums(is.na(obstructionDFy))<nrow(obstructionDFy)]
+obstructionDFz <- obstructionDFz[,colSums(is.na(obstructionDFz))<nrow(obstructionDFz)]
+obstructionDFtx <- obstructionDFtx[,colSums(is.na(obstructionDFtx))<nrow(obstructionDFtx)]
+obstructionDFty <- obstructionDFty[,colSums(is.na(obstructionDFty))<nrow(obstructionDFty)]
+obstructionDFtz <- obstructionDFtz[,colSums(is.na(obstructionDFtz))<nrow(obstructionDFtz)]
+
+#Average columns
+obstructionDFx$mean <- rowMeans(obstructionDFx, na.rm=TRUE)
+obstructionDFy$mean <- rowMeans(obstructionDFy, na.rm=TRUE)
+obstructionDFz$mean <- rowMeans(obstructionDFz, na.rm=TRUE)
+obstructionDFtx$mean <- rowMeans(obstructionDFtx, na.rm=TRUE)
+obstructionDFty$mean <- rowMeans(obstructionDFty, na.rm=TRUE)
+obstructionDFtz$mean <- rowMeans(obstructionDFtz, na.rm=TRUE)
+
+x <- c(seq(from=1,to=15,by=1))
+
+df <- data.frame(x,obstructionDFx$mean,obstructionDFy$mean,obstructionDFz$mean,obstructionDFtx$mean,obstructionDFty$mean,obstructionDFtz$mean)
+
+# Visualize
+ggplot(df, aes(df$x, y=value)) + labs(x="Time after obstruction", y="Mean") + ggtitle("Comparing Different Failures for obstructions")+ geom_point(aes(y=obstructionDFx$mean, col="X force"), size=2) + geom_point(aes(y=obstructionDFy$mean,col="Y Force"), size=2) + geom_point(aes(y=obstructionDFz$mean, col="Z force"), size=2) + geom_point(aes(y=obstructionDFtx$mean,col="X Torque"), size=2) + geom_point(aes(y=obstructionDFty$mean,col="Y Torque"), size=2) + geom_point(aes(y=obstructionDFtz$mean,col="Z Torque"), size=2) + geom_line(aes(x = df$x, y = df$obstructionDFx.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$obstructionDFy.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$obstructionDFz.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$obstructionDFtx.mean), data=df, size=0) + geom_line(aes(x = df$x, y = df$obstructionDFty.mean), data = df, size = 0) + geom_line(aes(x = df$x, y = df$obstructionDFtz.mean),  data = df, size = 0)
 
 
 
